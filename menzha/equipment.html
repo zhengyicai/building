@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>远程开锁</title>
+	</head>
+	<style>
+		.tableText{
+			height: 120px;
+			
+		}
+		
+		
+	</style>
+	
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/honeySwitch.css"/>
+	<script src="js/jquery-v1.10.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/honeySwitch.js"></script>
+	
+	<body style="margin: 0; padding: 0; font-size: 40px;">
+		<div style="width: 100%; height: 110px; background-color:#37B4CA;font-size: 50px;line-height: 110px; padding-left:20px; color: white;text-align: center;">
+			<span id="goBack" class="glyphicon glyphicon-chevron-left" style="position: absolute;z-index: 2; left:10px;top:30px"></span>
+			<span>远程开锁</span>
+		</div>
+		
+		<div style="width: 100%;">
+			<div style="width: 100%;height: 100%; position:absolute ;z-index: 9999; padding-top: 400px; display:none" id="showdiv">
+					<div id="showText" style="background-color:#777777;  margin: auto auto; text-align: center; width: 300px; height: 300px; line-height: 300px; color: white; border-radius: 50px;"></div>
+			</div>
+			<table class="table table-condensed tableText" >
+					<!-- <tr>
+					  <td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >测试数据地方大幅度房东<br/><span style="font-size: 30px;">广东省珠海市香洲区唐家湾镇</span></td>
+					  <td class=" col-lg-3 col-sm-3" style="line-height: 120px;">离线</td>
+					  <td class=" col-lg-2 col-sm-2" style="line-height: 120px; padding-top:20px;">
+						 <div class="common-row" style="line-height: 120px;">
+							<div class="cell-right"><span class="switch-on" id="wifi"></span></div>
+						</div>
+					  </td>
+					</tr>
+					<tr>
+					  <td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >测试数据地方大幅度房东<br/><span style="font-size: 30px;">广东省珠海市香洲区唐家湾镇</span></td>
+					  <td class=" col-lg-3 col-sm-3" style="line-height: 120px;">离线</td>
+					  <td class=" col-lg-2 col-sm-2" style="line-height: 120px; padding-top:20px;">
+						 <div class="common-row" style="line-height: 120px;">
+							<div class="cell-right"><span class="switch-on" id="wifi"></span></div>
+						</div>
+					  </td>
+					</tr>
+					<tr>
+					  <td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >测试数据地方大幅度房东<br/><span style="font-size: 30px;">广东省珠海市香洲区唐家湾镇</span></td>
+					  <td class=" col-lg-3 col-sm-3" style="line-height: 120px;">离线</td>
+					  <td class=" col-lg-2 col-sm-2" style="line-height: 120px; padding-top:20px;">
+						 <div class="common-row" style="line-height: 120px;">
+							<div class="cell-right"><span class="switch-on" id="wifi"></span></div>
+						</div>
+					  </td>
+					</tr> -->
+			</table>
+			
+		</div>
+		
+	</body>
+	<script src="js/path.js"></script>
+	<script>
+		
+		
+		 
+		
+		
+		$(function(){
+			$("#goBack").click(function(){
+				history.go(-1);
+			});
+			
+			
+			var wxIds = sessionStorage.getItem('mzopenId');
+			
+			
+			
+				
+			$.get($base_path+"/equipment/userEquipment",{wxid:wxIds},function(data){
+				
+				
+				var str = '';		
+				var cho = "";
+				for(var i = 0;i<data.data.length;i++){
+					if(data.data[i].lastTime>50){
+						cho = '离线';
+					}else{
+						cho = '在线';
+					}
+					str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>开锁</button></td></tr>'; 
+				
+				}
+				
+				$(".tableText").html(str);
+				
+				//$(".wifi").addClass("switch-on");
+				// $(".tableText").listview("refresh");
+						
+			}); 
+			
+			
+			
+			
+			 
+			 
+			 
+			
+	
+		});
+		
+		function getSuccess(str){
+			$.get($base_path+"/equipment/getUnlockSuccess",{deviceId:str},function(data){
+				
+				if(data.code ==9999){
+					$("#showText").html("开锁失败");
+					setTimeout(function(){
+						$("#showdiv").hide();
+					},2000);
+				}else{
+					if(data.data.state =='20'){
+						$("#showText").html("开锁失败");	
+					}else{
+						$("#showText").html("开锁成功");	
+					}
+					
+						setTimeout(function(){
+							$("#showdiv").hide();
+						},2000);
+				}
+					
+			});
+		}
+		
+		function sub1(str){
+			var deviceId = Number(Math.random().toString().substr(2)).toString(36);
+			var person = {
+				id:sessionStorage.getItem('mzopenId'),
+				equipmentNo:str,
+				equipmentId:deviceId
+			}
+			$("#showdiv").show();
+			$("#showText").html("开锁中");
+			
+			$.post($base_path+"/equipment/onlineUnlock",person,function(data){
+					setTimeout(function(){
+						getSuccess(deviceId);	
+					},3000);
+				
+					
+			});
+	
+		}
+		
+		
+		
+		
+	</script>
+</html>

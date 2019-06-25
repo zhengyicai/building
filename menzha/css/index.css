@@ -1,0 +1,85 @@
+.content{
+	width: 100%;
+	margin-top: 20%;
+	text-align: center;
+}
+.longin-boder{
+	width: 80%;
+	height: 40px;
+	margin-top: 20px;
+	margin-left: 10%;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #dddddd;
+	border-radius: 5px;  
+	background-color: #efefef;
+}
+.image{
+	width: 10%;
+	
+	float: left;
+	text-align: right;
+}
+.input{
+	width: 80%;
+	float: left;
+	margin-left: 5%;
+	height: 37px;
+	line-height: 37px;
+	border:0px;
+	color: #333333;
+	font-size: 16px;
+	background-color: #efefef;
+	
+}
+ 
+.button{
+	height: 40px;
+	width: 80%;
+	margin-top: 20px;
+	margin-left: 10%;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	line-height: 38px;
+	border-radius: 5px;
+	color: #ffffff;
+	background-color: #37B4CA;
+	
+}
+ 
+.button:active {  
+	background-color:#37a3b9;
+}
+
+
+.file {
+	position: relative;
+	display: inline-block;
+	background: #37B4CA;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: white;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 30px;
+	
+}
+.file input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	margin-left: 0px;
+}
+.file:hover {
+	background: #37B4CA;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
+ 
