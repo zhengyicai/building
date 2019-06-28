@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>录入人脸数据</title>
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	<script src="js/jquery-v1.10.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+	<div style="width: 100%; height: 45px; background-color:#37B4CA;font-size: 20px;line-height: 45px; padding-left:20px; color: white;text-align: center;">
+		<span id="goBack" class="glyphicon glyphicon-chevron-left" style="position: absolute;z-index: 2; left:10px;top:12px"></span>
+		<span>添加人脸信息</span>
+	</div>
+	
+<div class="content" >
+	
+	<!--<form  id="formid" action=""  method="post" enctype="multipart/form-data" target="frameName">
+	
+	
+	
+	<div class="longin-boder">
+		<div class="image"><span class="glyphicon glyphicon-ok-sign"></div>
+		
+		<select class="input" id="selectInput" name="communityId">
+			
+			
+		</select>
+	</div>
+	
+	<div class="longin-boder">
+		<div class="image"><span class="glyphicon glyphicon-user"></div>
+		<input class="input" type="text" id="userName" name="name"  placeholder="请输入用户名"/>
+		
+	</div>-->
+
+		
+	<!--<div class="input-group">
+	  <input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
+	  <span class="input-group-addon" id="basic-addon2">@example.com</span>
+	</div>
+
+	<div class="longin-boder">
+		<div class="image"><span class="glyphicon glyphicon-list-alt"></div>
+		<input class="input" name="identityNo" type="text" id="cardId" placeholder="请输入短信验证码"/>
+	</div> -->
+	
+	
+	<div class="longin-boder">
+	
+		
+		<select class="input" id="selectInput" name="communityId">
+			
+			
+		</select>
+	</div>
+	
+	<div class="longin-boder">
+	
+		<input class="input" type="text" id="userName" name="name"  placeholder="请输入用户名"/>
+		
+	</div>
+	<div class="longin-boder">
+	  <input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
+	  <span class="input-group-addon" id="basic-addon2">@example.com</span>
+	</div>
+	
+	
+	
+	<div class="button">确认录入</div>
+	<!--</form>-->
+	<iframe src="" frameborder="0" name="frameName" ></iframe>
+</div>
+</body>
+<script src="js/path.js"></script>
+<script src="js/jqueryform.js"></script>
+<script>
+	function changepic() {
+        var reads= new FileReader();
+        f=document.getElementById('file').files[0];
+        reads.readAsDataURL(f);
+        reads.onload=function (e) {
+            document.getElementById('show').src=this.result;
+			document.getElementById('show').style.display = "inline";
+        };
+    }
+	
+	$(function(){
+			
+		$(function(){
+			$("#goBack").click(function(){
+				history.go(-1);
+			});
+			
+			//
+			$("#wxId").val(sessionStorage.getItem("mzopenId"));
+			//获取数据	
+			$.get($base_path+"/wx/wxFindAll",{},function(data){
+				var opt = "<option value=''>请选择项目</option>";
+				for(var i= 0;i<data.data.length;i++){
+					opt+="<option  value="+data.data[i].id+">"+data.data[i].communityName+"</option>";
+				}	
+				$("#selectInput").html(opt);
+				
+//				$.get($base_path+"/equipment/findResident",{wxid:sessionStorage.getItem("mzopenId")},function(data){
+//					
+//					$("#selectInput").val(data.data.communityId);
+//					$("#cardId").val(data.data.identityNo);
+//					$("#userName").val(data.data.name);
+//					$("#phone").val(data.data.mobile);
+//					$("#cmd").val("20");
+//					
+//				});
+				
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+
+		});
+		//alert(localStorage.getItem("openId"));
+		
+		$(".button").click(function(){
+			localStorage.setItem("openId","zyc");
+			
+			
+			if($("#selectInput").val().trim()=="" || $("#selectInput").val()==null ){
+				alert("项目不能为空");
+				return;
+			}
+			if($("#phone").val().trim()=="" || $("#phone").val()==null ){
+				alert("手机号不能为空");
+				return;
+			}
+			if($("#phone").val().trim()=="" || $("#phone").val()==null ){
+				alert("手机号不能为空");
+				return;
+			}
+			
+			
+			
+			$("#formid").attr("action",$base_path+"/equipment/photoUpload");
+			$("#formid").submit();
+			
+			
+			
+			
+		});
+		$("#formid").ajaxForm(function(data){    
+			
+				alert("提交成功！");     
+			
+		});       
+		
+		
+	})
+
+</script>
+
+</html>
