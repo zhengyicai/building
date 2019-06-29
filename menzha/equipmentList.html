@@ -115,17 +115,22 @@
 			var wxIds = sessionStorage.getItem('mzopenId');
 			
 			var openId = getParameter("openId");
-			openId="zyc";
+			//openId="zyc";
 			sessionStorage.setItem('mzopenId', openId);
 			var wxIds = sessionStorage.getItem('mzopenId');
 			
 			
+		
 			$.get($base_path+"/register/findWxid",{wxid:wxIds},function(data){
 				if(data.code =='9999'){
 					alert(data.message);
+					
+
 					$("#ddd").prop("href","javascript:void(0)");
 					$(".button").prop("disabled",true);
 					
+				}else{
+					sessionStorage.setItem('communityId', data.message);
 				}
 				
 			});
