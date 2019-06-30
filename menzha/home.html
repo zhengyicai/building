@@ -13,25 +13,25 @@
 		
 		
 		<div style="text-align: center; height: 400px;margin-top: 50px;">
-			<div class="col-lg-4 col-sm-4" >
+			<div class="col-lg-4 col-sm-4" style="display: none;margin-top: 40px;" >
 				<a href="equipment.html" style="text-decoration:none;">
 				<img src="img/icon-openDoor.png" style="width: 70%;"><br/>
 				<h3 style="font-size:32px;text-align: center;font-weight: bold; ">远程开锁</h3>
 				</a>
 			</div>
-			<div class="col-lg-4 col-sm-4">
-				<a href="add.html" style="text-decoration:none;">
+			<div class="col-lg-4 col-sm-4" style="margin-top: 40px;">
+				<a href="equipmentList.html" style="text-decoration:none;">
 				<img src="img/icon-openCard.png" style="width: 70%;"><br/>
-				<h3 style="font-size:32px;text-align: center;font-weight: bold;">添加人脸信息</h3>
+				<h3 style="font-size:32px;text-align: center;font-weight: bold;">设备列表</h3>
 				</a>
 			</div>
 			
-			<div class="col-lg-4 col-sm-4">
+			<!--<div class="col-lg-4 col-sm-4" >
 				<a href="code.html" style="text-decoration:none;">
 				<img src="img/icon-erweima.png" style="width: 70%; border-radius: 50px 50px 50px 50px;"><br/>
 				<h3 style="font-size:32px;text-align: center;font-weight: bold;">二维码开锁</h3>
 				</a>
-			</div>
+			</div>-->
 			
 			<!-- <div class="col-lg-4 col-sm-4" style="margin-top: 40px;  " >
 				<a href="auth.html" style="text-decoration:none;">
@@ -42,7 +42,7 @@
 			<div class="col-lg-4 col-sm-4" style="margin-top: 40px;">
 				<a href="record.html" style="text-decoration:none;">
 				<img src="img/icon-reload.png" style="width: 70%;  border-radius: 50px 50px 50px 50px;"><br/>
-				<h3 style="font-size:32px;text-align: center;font-weight: bold;">开锁记录</h3>
+				<h3 style="font-size:32px;text-align: center;font-weight: bold;">警报记录</h3>
 				</a>
 			</div>
 			<!-- <div class="col-lg-4 col-sm-4" style="margin-top: 40px;">
@@ -75,8 +75,9 @@
 		}
 		$(function(){
 			var openId = getParameter("openId");
-			openId = "onWgX1ryBvuJx51wCIbsyW9ldido";
+			openId = "ohJcK5-Jp-p3tban3ZvILlOqlQbw";
 			sessionStorage.setItem('mzopenId', openId);
+			
 		})
 		
 	</script>

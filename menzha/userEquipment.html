@@ -73,9 +73,7 @@
 	
 	$(function(){
 		
-		
-		var comunityId= sessionStorage.getItem('communityId');
-		
+		var communityId11 = "";
 		function getParameter(param)
 		{
 			
@@ -113,14 +111,14 @@
 			});
 			
 			//获取数据	
-			$.get($base_path+"/wx/wxFindAll",{},function(data){
+			$.get($base_path+"/equipment/getCommunityList",{wxId:wxIds},function(data){
 				var opt = "";
 				
 				for(var i= 0;i<data.data.length;i++){
-					//opt+="<option  value="+data.data[i].id+">"+data.data[i].communityName+"</option>";
-					//opt+="<input type='checkbox' style='width:35%'  name='equipmentList' value="+data.data[i].id+">"+data.data[i].communityName+"<br>";
-					opt+='<input class="inputcl" style="width: 20px;height: 20px; margin-right: 10px;"  name="equipmentList" type="checkbox"  value="'+data.data[i].id+'" /> '+data.data[i].communityName+'<br/>';
+					communityId11 = data.data[0].communityId;
+					opt+='<input class="inputcl" style="width: 20px;height: 20px; margin-right: 10px;"  name="equipmentList" type="checkbox"  value="'+data.data[i].id+'" /> '+data.data[i].equipmentName+"["+data.data[i].equNo+"]"+'<br/>';
 				}
+				
 				
 				$("#selectInput").html(opt);
 			});
@@ -141,7 +139,56 @@
 				if(obj[k].checked)
 					check_val.push(obj[k].value);
 			}
-			alert(check_val);
+			//alert(check_val);
+			
+			if(check_val.length==0){
+				alert("请选择设备");
+				return;
+			}
+			
+			if(check_val.length>3){
+				alert("最多可以绑定三台设备");
+				return;
+			}
+			
+			
+			var person = {
+				id:sessionStorage.getItem("mzopenId"),
+				communitId:communityId11,
+				equipments:check_val
+			}
+			
+			console.log(person);
+			
+			
+			$.ajax({
+			    url:$base_path+"/equipment/saveCommunityList",    //请求的url地址
+				
+			    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+			    data:JSON.stringify(person),    //参数值
+			    type:"POST",   //请求方式
+			 	contentType: "application/json; charset=utf-8",
+			 	dataType:"json",
+			    beforeSend:function(){
+			        //请求前的处理
+			    },
+			    success:function(data){
+			        //请求成功时处理
+					if(data.code == "0000"){
+						alert("设备绑定成功，等待管理员审核");
+						history.go(-1);
+					}else{
+						alert(data.message);	
+					}
+					
+			    },
+			    complete:function(){
+			        //请求完成的处理
+			    },
+			    error:function(){
+			        //请求出错处理
+			    }
+			});
 
 			
 			

@@ -105,9 +105,10 @@
 		$(function(){
 			var openId = getParameter("openId");
 			//openId="zyc";
+			
 			sessionStorage.setItem('mzopenId', openId);
 			
-			$("#wxId").val(sessionStorage.getItem("mzopenId"));
+			//$("#wxId").val(sessionStorage.getItem("mzopenId"));
 			$("#goBack").click(function(){
 				history.go(-1);
 			});
@@ -152,12 +153,13 @@
 			
 			var person = {
 				mobile:$("#phone").val()+"",
-				wxId:$("#wxId").val(),
+				wxId:sessionStorage.getItem("mzopenId"),
 				smsCode:$("#code2").val()+"",
 				name:$("#userName").val(),
 				communityId:$("#selectInput").val(),
 				password:"1q2w3e11"
 			}
+			
 			
 			
 			$.ajax({

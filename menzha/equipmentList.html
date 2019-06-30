@@ -41,6 +41,7 @@
 		
 	<body style="margin: 0; padding: 0; font-size: 40px;">
 		<div style="width: 100%; height: 110px; background-color:#37B4CA;font-size: 50px;line-height: 110px; padding-left:20px; color: white;text-align: center;">
+			<span id="goBack" class="glyphicon glyphicon-chevron-left" style="position: absolute;z-index: 2; left:10px;top:30px"></span>
 			<span>设备列表</span>
 		</div>
 		
@@ -78,7 +79,7 @@
 					</tr> -->
 			</table>
 			<a id="ddd" href="userEquipment.html" style="text-decoration:none;">
-				<div class="button" style="height: 80px; line-height: 80px; text-align: center;font-size: 40px;">绑定设备</div>
+				<div class="button" style="height: 100px; line-height: 100px; text-align: center;font-size: 45px;">绑定设备</div>
 			</a>
 		</div>
 		
@@ -87,7 +88,6 @@
 	<script>
 		
 		
-		 
 		
 		
 		$(function(){
@@ -112,42 +112,47 @@
 			}
 			
 			
+			//var wxIds = sessionStorage.getItem('mzopenId');
+			
+//			var openId = getParameter("openId");
+//			openId="zyc";
+//			sessionStorage.setItem('mzopenId', openId);
 			var wxIds = sessionStorage.getItem('mzopenId');
 			
-			var openId = getParameter("openId");
-			//openId="zyc";
-			sessionStorage.setItem('mzopenId', openId);
-			var wxIds = sessionStorage.getItem('mzopenId');
 			
-			
-		
 			$.get($base_path+"/register/findWxid",{wxid:wxIds},function(data){
 				if(data.code =='9999'){
 					alert(data.message);
-					
-
+					history.go(-1);
 					$("#ddd").prop("href","javascript:void(0)");
 					$(".button").prop("disabled",true);
 					
-				}else{
-					sessionStorage.setItem('communityId', data.message);
 				}
 				
 			});
 			
 				
-			$.get($base_path+"/equipment/userEquipment",{wxid:wxIds},function(data){
+			$.get($base_path+"/equipment/getCommunityListSelect",{wxId:wxIds},function(data){
 				
 				
 				var str = '';		
 				var cho = "";
 				for(var i = 0;i<data.data.length;i++){
-					if(data.data[i].lastTime>50){
-						cho = '离线';
-					}else{
-						cho = '在线';
+//					if(data.data[i].lastTime>50){
+//						cho = '离线';
+//					}else{
+//						cho = '在线';
+//					}
+
+					if(data.data[i].equCardState=='30'){
+						cho = '待审核';
+					}else if (data.data[i].equCardState=='10'){
+						cho = '审核通过';
+					}else if (data.data[i].equCardState=='20'){
+						cho = '审核失败';
 					}
-					str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>开锁</button></td></tr>'; 
+
+					str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>详情</button></td></tr>'; 
 				
 				}
 				
