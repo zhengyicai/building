@@ -146,13 +146,15 @@
 
 					if(data.data[i].equCardState=='30'){
 						cho = '待审核';
+						str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"></td></tr>'; 
 					}else if (data.data[i].equCardState=='10'){
 						cho = '审核通过';
+						str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>详情</button></td></tr>'; 
 					}else if (data.data[i].equCardState=='20'){
 						cho = '审核失败';
 					}
 
-					str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>详情</button></td></tr>'; 
+					
 				
 				}
 				
@@ -201,22 +203,9 @@
 		}
 		
 		function sub1(str){
-			var deviceId = Number(Math.random().toString().substr(2)).toString(36);
-			var person = {
-				id:sessionStorage.getItem('mzopenId'),
-				equipmentNo:str,
-				equipmentId:deviceId
-			}
-			$("#showdiv").show();
-			$("#showText").html("开锁中");
+			//var str = str;
+			window.location.href = "equipmentDetail.html?equipmentNo="+str;
 			
-			$.post($base_path+"/equipment/onlineUnlock",person,function(data){
-					setTimeout(function(){
-						getSuccess(deviceId);	
-					},3000);
-				
-					
-			});
 	
 		}
 		
