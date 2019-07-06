@@ -175,7 +175,13 @@
 			    },
 			    success:function(data){
 			        //请求成功时处理
-					alert(data.message);
+					if(data.code =="2000"){
+						alert(data.message);
+					}else if(data.code =="0000"){
+						alert("注册成功，请关闭当前页面");
+					}else{
+						alert(data.message);
+					}
 			    },
 			    complete:function(){
 			        //请求完成的处理
