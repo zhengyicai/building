@@ -111,7 +111,7 @@
 			});
 			
 			//获取数据	
-			$.get($base_path+"/equipment/getCommunityList",{wxId:wxIds},function(data){
+			$.get($base_path+"/equipment/getCommunityList1",{wxId:wxIds},function(data){
 				var opt = "";
 				
 				for(var i= 0;i<data.data.length;i++){
@@ -176,7 +176,7 @@
 			        //请求成功时处理
 					if(data.code == "0000"){
 						alert("设备绑定成功，等待管理员审核");
-						history.go(-1);
+						window.location.href="equipmentList.html";
 					}else{
 						alert(data.message);	
 					}
