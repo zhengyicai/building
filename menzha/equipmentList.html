@@ -137,19 +137,20 @@
 				
 				var str = '';		
 				var cho = "";
+				var cho1 = "";
 				for(var i = 0;i<data.data.length;i++){
-//					if(data.data[i].lastTime>50){
-//						cho = '离线';
-//					}else{
-//						cho = '在线';
-//					}
+					if(data.data[i].lastTime>50){
+						cho1 = '离线';
+					}else{
+						cho1 = '在线';
+					}
 
 					if(data.data[i].equCardState=='30'){
 						cho = '待审核';
-						str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"></td></tr>'; 
+						str+='<tr><td class=" col-lg-5 col-sm-5" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho1+'</td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"></td></tr>'; 
 					}else if (data.data[i].equCardState=='10'){
 						cho = '审核通过';
-						str+='<tr><td class=" col-lg-7 col-sm-7" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>详情</button></td></tr>'; 
+						str+='<tr><td class=" col-lg-5 col-sm-5" style="padding: 20px 20px;" >'+data.data[i].equipmentName+'<br/><span style="font-size: 30px;">'+data.data[i].equNo+'</span></td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho1+'</td><td class=" col-lg-3 col-sm-3" style="line-height: 120px;">'+cho+'</td><td class=" col-lg-2 col-sm-2" style="line-height: 80px; padding-top:30px;"><button style="background-color:#37B4CA;border-radius:10px;width:120px;color:white;border:0px" onclick=sub1("'+data.data[i].equNo.toString()+'")>详情</button></td></tr>'; 
 					}else if (data.data[i].equCardState=='20'){
 						cho = '审核失败';
 					}

@@ -29,7 +29,7 @@
 		</div>
 		
 		<div style="width: 100%;">
-			<table class="table table-condensed tableText" border="1" style="border:0px">
+			<table border="1" style="border:0px">
 				<tr style="font-size: 35px; color: #333; text-align: center; line-height: 80px;">
 				  <th class=" col-lg-6 col-sm-6"  style="text-align: center;height: 70px; line-height: 70px;">参数名</td>
 				  <th class=" col-lg-6 col-sm-6" style="text-align: center;height: 70px;line-height: 70px;">参数值</td>
@@ -192,13 +192,13 @@
 			});
 			var equipmentNo = getParameter("equipmentNo");
 			function loadData(){
-				$.get($base_path+"/equipment/getRedisEqu",{equNo:equipmentNo},function(data){
+				$.get($base_path+"/equipment/getRedisEqu1",{equNo:equipmentNo},function(data){
 					var equParam = data.data;
 						//alert(equParam);
 					if(equParam.length>0){
 						var aa = equParam.split(",");
 						for(var i= 0;i<aa.length;i++){
-							$("#value"+i).html(aa[i]);  
+							$("#value"+(i+1)).html(aa[i]);  
 						}
 					}	
 					
